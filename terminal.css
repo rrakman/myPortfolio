@@ -1,0 +1,419 @@
+/* Modern Terminal - Cyberpunk Theme */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  --terminal-bg: #0c0c16;
+  --terminal-text: #e0e0ff;
+  --terminal-prompt: #00ff9d;
+  --terminal-accent: #ff5e99;
+  --terminal-shadow: rgba(0, 255, 157, 0.15);
+  --terminal-glow: rgba(0, 255, 157, 0.4);
+}
+
+::selection {
+  background: var(--terminal-accent);
+  color: #000;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-size: 15pt;
+  font-family: 'Fira Code', Inconsolata, monospace;
+  color: var(--terminal-text);
+  background-color: var(--terminal-bg);
+  background-image: 
+    linear-gradient(rgba(18, 16, 16, 0.9) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 16, 16, 0.9) 1px, transparent 1px);
+  background-size: 35px 35px;
+  background-position: -2px -2px;
+}
+
+#container {
+  padding: 1em 1.5em 1em 1em;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 0 30px var(--terminal-shadow);
+  border: 1px solid rgba(0, 255, 157, 0.2);
+  border-radius: 6px;
+  animation: terminalGlow 10s infinite alternate;
+  position: relative; /* Added for better input positioning */
+  height: calc(100vh - 40px); /* Set a fixed height with some padding */
+  overflow-y: auto; /* Allow scrolling of content */
+}
+
+@keyframes terminalGlow {
+  0% {
+    box-shadow: 0 0 20px var(--terminal-shadow);
+  }
+  50% {
+    box-shadow: 0 0 35px var(--terminal-glow);
+  }
+  100% {
+    box-shadow: 0 0 20px var(--terminal-shadow);
+  }
+}
+
+#container output {
+  clear: both;
+  width: 100%;
+}
+
+#container output h3 {
+  margin: 0.5em 0;
+  color: #ff9e64;
+  text-shadow: 0 0 5px rgba(255, 158, 100, 0.5);
+}
+
+#container output h1 {
+  color: #00ff9d;
+  text-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
+  margin-bottom: 0.2em;
+}
+
+#container output p {
+  margin: 0 0 0.8em;
+  line-height: 1.5;
+}
+
+#container output a {
+  color: #5eafff;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+#container output a:hover {
+  color: #00ff9d;
+  text-shadow: 0 0 8px rgba(0, 255, 157, 0.7);
+}
+
+#container output a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #5eafff;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+#container output a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+  background-color: #00ff9d;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0;
+}
+
+#input-line {
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--terminal-bg);
+  padding: 5px 0;
+  z-index: 100;
+  border-top: 1px solid rgba(0, 255, 157, 0.1);
+}
+
+.prompt {
+  white-space: nowrap;
+  color: var(--terminal-prompt);
+  font-weight: 500;
+  text-shadow: 0 0 5px rgba(0, 255, 157, 0.7);
+  margin-right: 7px;
+  letter-spacing: 0.5px;
+  animation: promptFlicker 3s infinite;
+  user-select: none;
+}
+
+.prompt .user {
+  color: #00ff9d;
+  font-weight: 600;
+}
+
+.prompt .at {
+  color: #e0e0ff;
+}
+
+.prompt .host {
+  color: #ff5e99;
+  font-weight: 600;
+}
+
+.prompt .colon, .prompt .dollar {
+  color: #e0e0ff;
+}
+
+.prompt .path {
+  color: #5eafff;
+}
+
+@keyframes promptFlicker {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(0, 255, 157, 0.7);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(0, 255, 157, 1);
+  }
+}
+
+.cmdline {
+  outline: none;
+  background-color: transparent;
+  margin: 0;
+  width: 100%;
+  font: inherit;
+  border: none;
+  color: inherit;
+  position: relative;
+  overflow: visible;
+  min-height: 1.5em;
+  max-height: 3em; /* Limit height to prevent excessive growth */
+  overflow-x: hidden; /* Hide horizontal overflow */
+  word-wrap: break-word; /* Break long words */
+  white-space: pre-wrap; /* Preserve whitespace but wrap */
+}
+
+.cmdline:focus {
+  outline: none;
+}
+
+.cmdline::after {
+  content: '▌';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.ls-files {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 5px 15px;
+  padding: 10px 0;
+}
+
+/* Command highlight effects */
+.command-highlight {
+  color: #00ff9d;
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
+}
+
+/* Matrix-like loading animation for long operations */
+.loading-matrix {
+  font-family: 'Fira Code', monospace;
+  color: #00ff9d;
+  overflow: hidden;
+  position: relative;
+  height: 20px;
+}
+
+.loading-matrix:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 255, 157, 0.1), 
+    transparent);
+  animation: scan 1.5s infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Skills graph styling */
+.skills-container {
+  margin: 15px 0;
+  width: 100%;
+}
+
+.skill-item {
+  margin-bottom: 12px;
+}
+
+.skill-name {
+  font-weight: 500;
+  color: #e0e0ff;
+  margin-bottom: 3px;
+}
+
+.skill-bar-container {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skill-bar {
+  height: 20px;
+  background: linear-gradient(90deg, var(--terminal-prompt), #5eafff);
+  border-radius: 3px;
+  position: relative;
+  transition: width 1.5s ease-in-out;
+}
+
+.skill-percentage {
+  position: absolute;
+  right: 8px;
+  color: #0c0c16;
+  font-weight: 600;
+  font-size: 0.9em;
+  line-height: 20px;
+}
+
+/* Hacking animation */
+.hack-animation {
+  margin: 10px 0;
+  padding: 5px;
+  border-left: 2px solid var(--terminal-prompt);
+}
+
+.hack-line {
+  font-family: 'Fira Code', monospace;
+  color: var(--terminal-prompt);
+  margin: 6px 0;
+  font-size: 0.95em;
+}
+
+.hack-success {
+  font-weight: bold;
+  color: var(--terminal-prompt);
+  font-size: 1.5em;
+  margin: 10px 0;
+  letter-spacing: 2px;
+  text-align: center;
+  animation: blinkingText 0.8s infinite;
+}
+
+@keyframes blinkingText {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1.0; }
+}
+
+/* Command suggestions styling */
+.command-suggestions {
+  margin: 5px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.command-highlight {
+  color: var(--terminal-prompt);
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(0, 255, 157, 0.5);
+}
+
+/* Error message styling */
+.error-message {
+  color: #ff5e99;
+}
+
+.error-cmd {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Welcome message and other terminal UI elements */
+.welcome-message {
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid rgba(94, 175, 255, 0.3);
+  border-radius: 4px;
+}
+
+.output-line {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.subtitle {
+  color: #5eafff;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+
+.project-title, .skill-category {
+  color: #ff9e64;
+  font-weight: 500;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.contact-value {
+  color: #5eafff;
+}
+
+.terminal-date {
+  color: #ff9e64;
+  font-weight: 500;
+  margin: 10px 0;
+  padding: 5px;
+  border-bottom: 1px solid rgba(255, 158, 100, 0.3);
+}
+
+/* Command list styling */
+.command-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.command-list div {
+  padding: 4px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.command-list div:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c0c16;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 157, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 157, 0.8);
+}
