@@ -14,7 +14,7 @@ $(function() {
 function addMatrixEffect() {
   const canvas = document.createElement('canvas');
   canvas.id = 'matrix-bg';
-  canvas.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.07;';
+  canvas.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.12;';
   document.body.prepend(canvas);
   
   const ctx = canvas.getContext('2d');
