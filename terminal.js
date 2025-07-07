@@ -72,9 +72,7 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
   var cmdLine_ = document.querySelector(cmdLineContainer);
   var output_ = document.querySelector(outputContainer);
 
-  const CMDS_ = [
-    'whoami', 'education', 'security', 'programming', 'interests', 'love', 'media', 'contact', 'blog', 'clear', 'help', 'matrix', 'skills', 'hack', 'date'
-  ];
+  const CMDS_ = ['whoami', 'education', 'security', 'programming', 'interests', 'media', 'contact', 'blog', 'clear', 'help', 'matrix', 'skills', 'hack'];
   
   var fs_ = null;
   var cwd_ = null;
@@ -262,7 +260,6 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
                     "<div><span class='command-highlight'>contact</span>: Display contact information</div>" +
                     "<div><span class='command-highlight'>blog</span>: Link to my online profiles</div>" +
                     "<div><span class='command-highlight'>matrix</span>: Toggle matrix animation effect</div>" +
-                    "<div><span class='command-highlight'>date</span>: Display current date and time</div>" +
                     "<div><span class='command-highlight'>clear</span>: Clear terminal</div>" +
                     "<div><span class='command-highlight'>help</span>: Display this menu</div>" +
                     "</div>";
@@ -301,19 +298,6 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
           output("Matrix effect not available. Try refreshing the page.");
         }
         break;
-      case 'date':
-        const now = new Date();
-        const dateOptions = { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        };
-        output("<div class='terminal-date'>" + now.toLocaleDateString("en-US", dateOptions) + "</div>");
-        break;
       case 'skills':
         const skillsGraph = createSkillsGraph();
         output(skillsGraph);
@@ -334,8 +318,8 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
     const skills = [
       { name: "Web Security", level: 80 },
       { name: "Binary Analysis", level: 70 },
-      { name: "Python", level: 85 },
-      { name: "C/C++", level: 95 },
+      { name: "Python", level: 75 },
+      { name: "C/C++", level: 85 },
       { name: "Docker", level: 80 },
       { name: "JavaScript", level: 70 }
     ];
